@@ -13,6 +13,8 @@ import json
 import os
 from pathlib import Path
 
+AUTH_USER_MODEL = 'ks_accounts.User'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,12 +40,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Default System APPS
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd Party APPS
+
+
+    # User Definition APPS
+    'ks_accounts',
 ]
 
 MIDDLEWARE = [
