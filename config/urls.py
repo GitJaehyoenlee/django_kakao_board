@@ -25,5 +25,6 @@ urlpatterns = [
 
     # User Define
     path('', ks_accounts.views.main_page),
-    path('ks_account/', include('ks_accounts.urls'))
+    path('ks_account/', include('ks_accounts.urls')),
+    path('board/', include('blog_board.urls')),
 ]

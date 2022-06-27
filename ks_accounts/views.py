@@ -2,9 +2,18 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from django.contrib.auth import login
 
-# Create your views here.
+
 def main_page(request):
     return render(request, 'ks_accounts/main.html', {})
+
+
+def login(request):
+    return render(request, 'ks_accounts/login.html', {})
+
+
+def signup(request):
+    return render(request, 'ks_accounts/sign_up.html', {})
+
 
 # def ks_login(request):
 #     if request.method=="GET":

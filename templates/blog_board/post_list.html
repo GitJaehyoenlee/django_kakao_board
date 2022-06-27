@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kakao Cloud School -게시판{% endblock %}
+
+{% block contents %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url({% static 'assets/img/home-bg.jpg' %})" >
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="site-heading">
+                    <h1>Study Note</h1>
+                    <span class="subheading"> 과목 별 정리한 강의 노트</span>
+                </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Board</th>
+        <th>Posts</th>
+        <th>Topics</th>
+        <th>Last Post</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for board in boards %}
+        <tr>
+          <td>
+            {{ board.name }}
+            <small class="text-muted d-block">{{ board.description }}</small>
+          </td>
+          <td class="align-middle">0</td>
+          <td class="align-middle">0</td>
+          <td></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
