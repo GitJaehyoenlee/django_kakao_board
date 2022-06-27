@@ -13,6 +13,7 @@ import json
 import os
 from pathlib import Path
 
+# 개발 모드 여부
 DEV_MODE = True
 
 # [Leny] Auth model Change
@@ -25,14 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_FILE = os.path.join(BASE_DIR, 'secret.json')
 
 with open(SECRET_FILE) as f:
-    SECRETS = json.loads(f.read())
+    SECRET_KEYS = json.loads(f.read())
 # [Leny] Auth model Change <end>
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRETS['SECRET_KEY']
+SECRET_KEY = SECRET_KEYS['SECRET_KEY']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -104,27 +105,33 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if DEV_MODE == True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': SECRETS['DB_NAME'],
-            'USER': SECRETS['DB_USER'],
-            'PASSWORD': SECRETS['DB_PASSWORD'],
-            'HOST': SECRETS['DB_HOST'],
-            'PORT': SECRETS['DB_PORT'],
-            'OPTIONS:': {
-                'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
-            }
-        }
-    }
+}
+# if DEV_MODE == True:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': SECRET_KEYS['DB_NAME'],
+#             'USER': SECRET_KEYS['DB_USER'],
+#             'PASSWORD': SECRET_KEYS['DB_PASSWORD'],
+#             'HOST': SECRET_KEYS['DB_HOST'],
+#             'PORT': SECRET_KEYS['DB_PORT'],
+#             'OPTIONS:': {
+#                 'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
+#             }
+#         }
+#     }
 
 
 # Password validation
@@ -158,16 +165,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 if DEV_MODE == True:
-    STATIC_URL = 'static/'
+    STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 else:
     # [Leny] AWS Setting <start>
-    AWS_ACCESS_KEY_ID = SECRETS["AWS_ACCESS_KEY_ID"]
-    AWS_SECRET_ACCESS_KEY = SECRETS["AWS_SECRET_ACCESS_KEY"]
+    AWS_ACCESS_KEY_ID = SECRET_KEYS["AWS_ACCESS_KEY_ID"]
+    AWS_SECRET_ACCESS_KEY = SECRET_KEYS["AWS_SECRET_ACCESS_KEY"]
     AWS_REGION = 'ap-northeast-2'
-    AWS_STORAGE_BUCKET_NAME = SECRETS["AWS_STORAGE_BUCKET_NAME"]
+    AWS_STORAGE_BUCKET_NAME = SECRET_KEYS["AWS_STORAGE_BUCKET_NAME"]
     AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
@@ -184,7 +191,6 @@ else:
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
     MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
-    # MEDIA_ROOT = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'config.asset_storage.MediaStorage'
 
     # [Leny] AWS Setting <END>
@@ -201,8 +207,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # [Leny] GOOGLE SMTP SETTING
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.googlemail.com'
-EMAIL_HOST_USER = SECRETS["EMAIL_HOST_USER"]
-EMAIL_HOST_PASSWORD =SECRETS["EMAIL_HOST_PASSWORD"]
+EMAIL_HOST_USER = SECRET_KEYS["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD =SECRET_KEYS["EMAIL_HOST_PASSWORD"]
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -221,4 +227,4 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # [Leny] Kakao Rest API KEY
-KAKAO_REST_API_KEY = SECRETS["KAKAO_REST_API_KEY"]
+KAKAO_REST_API_KEY = SECRET_KEYS["KAKAO_REST_API_KEY"]
