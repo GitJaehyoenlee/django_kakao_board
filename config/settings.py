@@ -13,7 +13,7 @@ import json
 import os
 from pathlib import Path
 
-AUTH_USER_MODEL = 'ks_accounts.User'
+# AUTH_USER_MODEL = 'ks_accounts.User'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,7 +51,6 @@ INSTALLED_APPS = [
 
 
     # User Definition APPS
-    'ks_accounts',
 ]
 
 MIDDLEWARE = [
