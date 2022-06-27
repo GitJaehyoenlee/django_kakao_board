@@ -44,6 +44,9 @@ if DEV_MODE == True:
 else:
     ALLOWED_HOSTS = ['*',]
 
+# Site Code
+SITE_ID = 1
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -54,7 +57,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # 3rd Party APPS
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao', # [Leny] Add Kakao Login - Used by allauth
 
     # User Definition APPS
     'ks_accounts',
@@ -199,6 +207,18 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+
+# [Leny] Django ALL-AUTH Setting
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # none, optional, mandatory
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # [Leny] Kakao Rest API KEY
 KAKAO_REST_API_KEY = SECRETS["KAKAO_REST_API_KEY"]
