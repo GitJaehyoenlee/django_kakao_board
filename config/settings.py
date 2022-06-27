@@ -49,8 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd Party APPS
 
-
     # User Definition APPS
+    'ks_accounts',
+    'blog_board',
 ]
 
 MIDDLEWARE = [
