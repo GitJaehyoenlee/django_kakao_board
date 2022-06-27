@@ -11,6 +11,11 @@ class Post(models.Model):
     create_dt = models.DateTimeField(auto_now_add=True)
     update_dt = models.DateTimeField(auto_now=True)
     tag_set = models.ManyToManyField('Tag', blank=True)
+    like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='likes', blank=True)
+
+    # Default Ordering Setting [최신 순 정렬]
+    class Meta:
+        ordering = ['-id']
 
 class PostImage(models.Model):
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE),
