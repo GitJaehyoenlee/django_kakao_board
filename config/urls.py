@@ -16,7 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+import ks_accounts.views
+
 urlpatterns = [
+    # System Default
     path('admin/', admin.site.urls),
-    path('account/', include('ks_accounts.urls'))
+    # 3rd Party
+
+    # User Define
+    path('', ks_accounts.views.main_page),
+    path('ks_account/', include('ks_accounts.urls'))
 ]

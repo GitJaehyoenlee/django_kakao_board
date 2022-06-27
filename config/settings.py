@@ -89,18 +89,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': SERCRETS['DB_ENGINE'],
-        'NAME': SERCRETS['DB_NAME'],
-        'USER': SERCRETS['DB_USER'],
-        'PASSWORD': SERCRETS['DB_PASSWORD'],
-        'HOST': SERCRETS['DB_HOST'],
-        'PORT': SERCRETS['DB_PORT'],
-        'OPTIONS': {
-            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -137,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
