@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+<header class="masthead" style="background-image: url({% static 'assets/img/contact-bg.jpg' %})") >
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading display-1 text-white bg-secondary">
+                    <br>
+                    <h1>이메일 인증</h1>
+                    <span class="subheading bg-secondary display-4"><p>가입하신 이메일로 인증 메일을 발송하였습니다.</p><p> 회원 인증을 위해, <b>이메일 인증</b>을 해주세요.</p><br></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
