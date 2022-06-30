@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 # 개발 모드 여부
-DEV_MODE = True
+DEV_MODE = False
 
 # [Leny] Auth model Change
 AUTH_USER_MODEL = 'ks_accounts.User'
@@ -65,11 +65,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao', # [Leny] Add Kakao Login - Used by allauth
+    'widget_tweaks', # [Leny] Add form checker
 
     # User Definition APPS
     'ks_accounts',
     'blog_board',
-    'blog_reply',
 ]
 
 MIDDLEWARE = [
@@ -106,33 +106,33 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+if DEV_MODE == True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-# if DEV_MODE == True:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': SECRET_KEYS['DB_NAME'],
-#             'USER': SECRET_KEYS['DB_USER'],
-#             'PASSWORD': SECRET_KEYS['DB_PASSWORD'],
-#             'HOST': SECRET_KEYS['DB_HOST'],
-#             'PORT': SECRET_KEYS['DB_PORT'],
-#             'OPTIONS:': {
-#                 'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
-#             }
-#         }
-#     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': SECRET_KEYS['DB_NAME'],
+            'USER': SECRET_KEYS['DB_USER'],
+            'PASSWORD': SECRET_KEYS['DB_PASSWORD'],
+            'HOST': SECRET_KEYS['DB_HOST'],
+            'PORT': SECRET_KEYS['DB_PORT'],
+            'OPTIONS:': {
+                'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
+            }
+        }
+    }
 
 
 # Password validation
